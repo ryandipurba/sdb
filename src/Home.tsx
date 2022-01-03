@@ -21,7 +21,10 @@ import {
   CANDY_MACHINE_PROGRAM,
 } from "./candy-machine";
 
-import { AlertState } from "./utils";
+import {
+  AlertState,
+  getAtaForMint,
+} from "./utils";
 
 const ConnectButton = styled(WalletDialogButton)``;
 
@@ -37,11 +40,12 @@ export interface HomeProps {
 const Home = (props: HomeProps) => {
   const [balance, setBalance] = useState<number>();
   const [isMinting, setIsMinting] = useState(false); // true when user got to press MINT
-  const [isActive, setIsActive] = useState(false); // true when countdown completes
 
   const [itemsAvailable, setItemsAvailable] = useState(0);
   const [itemsRedeemed, setItemsRedeemed] = useState(0);
   const [itemsRemaining, setItemsRemaining] = useState(0);
+  const [whitelistEnabled, setWhitelistEnabled] = useState(false);
+  const [whitelistTokenBalance, setWhitelistTokenBalance] = useState(0);
 
   const [alertState, setAlertState] = useState<AlertState>({
     open: false,
@@ -71,7 +75,34 @@ const Home = (props: HomeProps) => {
       setItemsAvailable(cndy.state.itemsAvailable);
       setItemsRemaining(cndy.state.itemsRemaining);
       setItemsRedeemed(cndy.state.itemsRedeemed);
-      setIsActive(cndy.state.isActive);
+
+      // fetch whitelist token balance
+      if (cndy.state.whitelistMintSettings) {
+        setWhitelistEnabled(true);
+        let balance = 0;
+        try {
+          const tokenBalance =
+            await props.connection.getTokenAccountBalance(
+              (
+                await getAtaForMint(
+                  cndy.state.whitelistMintSettings.mint,
+                  wallet.publicKey,
+                )
+              )[0],
+            );
+
+          balance = tokenBalance?.value?.uiAmount || 0;
+        }
+        catch (e) {
+          console.error(e);
+          balance = 0;
+        }
+
+        setWhitelistTokenBalance(balance);
+      }
+      else {
+        setWhitelistEnabled(false);
+      }
     })();
   };
 
@@ -173,12 +204,13 @@ const Home = (props: HomeProps) => {
 
       {wallet && <p>Remaining: {itemsRemaining}</p>}
 
+      {wallet && whitelistEnabled && <p>Whitelist token balance: {whitelistTokenBalance}</p>}
+
       {<MintContainer>
         {!wallet ? (
           <ConnectButton>Connect Wallet</ConnectButton>
         ) :
-          isActive &&
-            candyMachine?.state.gatekeeper &&
+          candyMachine?.state.gatekeeper &&
             wallet.publicKey &&
             wallet.signTransaction ? (
             <GatewayProvider
