@@ -1,0 +1,80 @@
+.roadmap {
+  position: relative;
+  background: url("../../assets/images/lines.svg");
+  background-color: #0b0825;
+}
+
+.roadmap-content {
+  margin-top: 300px;
+}
+
+.divider-bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+}
+
+.divider-bottom img {
+  height: auto;
+  min-width: 100%;
+}
+
+/* slider */
+.roadmap .tech-slideshow {
+  height: auto;
+  width: 60%;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.roadmap .tech-slideshow > div {
+  height: auto;
+  width: 2000px;
+  background: url("../../assets/images/droid-revers.png");
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: auto;
+  transform: translate3d(0, 0, 0);
+}
+.roadmap .tech-slideshow .mover-1 {
+  animation: moveSlideshow 12s linear infinite;
+}
+
+.roadmap .tech-slideshow .mover-2 {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+  background-position: 0 -200px;
+  animation: moveSlideshow 15s linear infinite;
+}
+.roadmap .tech-slideshow:hover .mover-2 {
+  opacity: 1;
+}
+
+.roadmap .slider {
+  margin-top: 80px;
+  position: absolute;
+  bottom: 200;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+  /* top: calc(50% - 97.25px); */
+  overflow: hidden;
+}
+.roadmap .slider .slider-row {
+  width: 2000px;
+  height: 200px;
+  background-image: url("../../assets/images/droid-revers.png");
+  background-size: 2000px 200px;
+  animation: slide 30s linear infinite;
+}
+
+@media (max-width: 1300px) {
+  .roadmap .slider {
+    margin-top: 20px;
+  }
+}

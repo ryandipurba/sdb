@@ -1,0 +1,111 @@
+.header {
+  position: relative;
+  min-height: 100vh;
+  background: url("../../assets/images/star2.gif");
+  background-size: cover;
+}
+
+.divider-top {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  right: 0;
+}
+
+.world {
+  bottom: 0;
+  position: absolute;
+  right: 0;
+}
+
+.world img {
+  display: block;
+  margin-left: auto;
+  width: 80%;
+}
+
+.divider-top img {
+  height: auto;
+  min-width: 100%;
+}
+
+@media screen and (max-width: 1500px) {
+  .world img {
+    width: 60%;
+  }
+}
+
+.tech-slideshow {
+  height: auto;
+  width: 60%;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.tech-slideshow > div {
+  height: auto;
+  width: 2000px;
+  background: url("../../assets/images/droids.png");
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: auto;
+  transform: translate3d(0, 0, 0);
+}
+.tech-slideshow .mover-1 {
+  animation: moveSlideshow 12s linear infinite;
+}
+
+.tech-slideshow .mover-2 {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+  background-position: 0 -200px;
+  animation: moveSlideshow 15s linear infinite;
+}
+.tech-slideshow:hover .mover-2 {
+  opacity: 1;
+}
+
+@keyframes moveSlideshow {
+  100% {
+    transform: translateX(-66.6666%);
+  }
+}
+
+@media (max-width: 1300px) {
+  .tech-slideshow {
+    width: 100%;
+  }
+  .header .slider {
+    top: -170px !important;
+  }
+}
+
+.header .slider {
+  position: absolute;
+  bottom: 0;
+  top: -105px;
+  z-index: -1;
+  width: 100%;
+  /* top: calc(50% - 97.25px); */
+  overflow: hidden;
+}
+.slider .slider-row {
+  width: 2000px;
+  height: 200px;
+  background-image: url("../../assets/images/droids.png");
+  background-size: 2000px 200px;
+  animation: slide 30s linear infinite;
+}
+
+@keyframes slide {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: -2000px;
+  }
+}

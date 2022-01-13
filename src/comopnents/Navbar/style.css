@@ -1,0 +1,33 @@
+nav {
+  font-size: 2rem;
+}
+
+.nav-list {
+  text-align: right;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.nav-list a {
+  color: white;
+  padding: 20px;
+}
+
+.nav-list a:hover {
+  background-image: linear-gradient(180deg, #ffff2b, #ff772b);
+  font-weight: 400;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 1000px) {
+  nav {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  .nav-list {
+    text-align: center !important;
+    margin-bottom: 50px;
+  }
+}

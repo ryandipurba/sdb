@@ -1,0 +1,38 @@
+.footer {
+  background-color: #160335;
+  position: relative;
+}
+
+.footer-container {
+  min-height: 100px;
+}
+
+.divider {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+}
+
+.divider img {
+  height: auto;
+  min-width: 100%;
+}
+
+.footer-banner img {
+  height: auto;
+  min-width: 100%;
+}
+
+.social img {
+  margin: 0px 10px;
+}
+
+@media (max-width: 1300px) {
+  .divider {
+    bottom: 100px;
+  }
+  .social {
+    padding: 0px !important;
+  }
+}

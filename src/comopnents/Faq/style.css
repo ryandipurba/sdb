@@ -1,0 +1,65 @@
+.faq {
+  background: url("../../assets/images/lines.svg");
+  background-color: #0b0825;
+}
+
+.faq .card {
+  margin: 40px 0px;
+  background-color: #33274c;
+  background-image: linear-gradient(
+    180deg,
+    #402e58,
+    #503c6e 17%,
+    #3d2967 81%,
+    #170935
+  );
+  box-shadow: 0 0 0 4px rgb(41 29 62 / 20%), -8px 0 0 0 #362950,
+    0 -8px 0 0 #362950, 8px 0 0 0 rgb(103 83 139 / 20%),
+    0 8px 0 0 rgb(38 27 60 / 20%);
+}
+
+.faq .card-block {
+  background-color: #33274c;
+  box-shadow: 0 0 0 4px rgb(41 29 62 / 20%), -8px 0 0 0 #362950,
+    0 -8px 0 0 #362950, 8px 0 0 0 rgb(103 83 139 / 20%),
+    0 8px 0 0 rgb(38 27 60 / 20%);
+
+  color: black;
+  padding: 0px 40px;
+  padding-bottom: 10px;
+}
+
+.card-header {
+  background-color: none !important;
+  border: none;
+}
+
+.faqHeader {
+  font-size: 27px;
+  margin: 20px;
+}
+
+.panel-heading [data-toggle="collapse"]:after {
+  font-family: "Glyphicons Halflings";
+  content: "e072"; /* "play" icon */
+  float: right;
+  color: #f58723;
+  font-size: 18px;
+  line-height: 22px;
+  /* rotate "play" icon from > (right arrow) to down arrow */
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+.panel-heading [data-toggle="collapse"].collapsed:after {
+  /* rotate "play" icon from > (right arrow) to ^ (up arrow) */
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+  color: #454444;
+}
