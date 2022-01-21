@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Snackbar } from "@material-ui/core";
@@ -9,8 +10,8 @@ import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { WalletDialogButton } from "@solana/wallet-adapter-material-ui";
-import { GatewayProvider } from '@civic/solana-gateway-react';
-import { MintButton } from './MintButton';
+import { GatewayProvider } from "@civic/solana-gateway-react";
+import { MintButton } from "./MintButton";
 
 import {
   CandyMachine,
@@ -21,12 +22,13 @@ import {
   CANDY_MACHINE_PROGRAM,
 } from "./candy-machine";
 
-import {
-  AlertState,
-  getAtaForMint,
-} from "./utils";
+import { AlertState, getAtaForMint } from "./utils";
 
-const ConnectButton = styled(WalletDialogButton)``;
+const ConnectButton = styled(WalletDialogButton)`
+  box-shadow: 0 0 0 4px rgb(109 73 255 / 40%), 0 -8px 0 0 rgb(109 73 255 / 20%),
+    -8px 0 0 0 rgb(109 73 255 / 20%), 8px 0 0 0 rgb(109 73 255 / 40%),
+    0 8px 0 0 rgb(109 73 255 / 40%);
+`;
 
 const MintContainer = styled.div``; // add your styles here
 
@@ -81,26 +83,23 @@ const Home = (props: HomeProps) => {
         setWhitelistEnabled(true);
         let balance = 0;
         try {
-          const tokenBalance =
-            await props.connection.getTokenAccountBalance(
-              (
-                await getAtaForMint(
-                  cndy.state.whitelistMintSettings.mint,
-                  wallet.publicKey,
-                )
-              )[0],
-            );
+          const tokenBalance = await props.connection.getTokenAccountBalance(
+            (
+              await getAtaForMint(
+                cndy.state.whitelistMintSettings.mint,
+                wallet.publicKey
+              )
+            )[0]
+          );
 
           balance = tokenBalance?.value?.uiAmount || 0;
-        }
-        catch (e) {
+        } catch (e) {
           console.error(e);
           balance = 0;
         }
 
         setWhitelistTokenBalance(balance);
-      }
-      else {
+      } else {
         setWhitelistEnabled(false);
       }
     })();
@@ -109,7 +108,7 @@ const Home = (props: HomeProps) => {
   const onMint = async () => {
     try {
       setIsMinting(true);
-      document.getElementById('#identity')?.click();
+      document.getElementById("#identity")?.click();
       if (wallet && candyMachine?.program && wallet.publicKey) {
         const mintTxId = (
           await mintOneToken(candyMachine, wallet.publicKey)
@@ -121,35 +120,35 @@ const Home = (props: HomeProps) => {
             mintTxId,
             props.txTimeout,
             props.connection,
-            'singleGossip',
-            true,
+            "singleGossip",
+            true
           );
         }
 
         if (!status?.err) {
           setAlertState({
             open: true,
-            message: 'Congratulations! Mint succeeded!',
-            severity: 'success',
+            message: "Congratulations! Mint succeeded!",
+            severity: "success",
           });
         } else {
           setAlertState({
             open: true,
-            message: 'Mint failed! Please try again!',
-            severity: 'error',
+            message: "Mint failed! Please try again!",
+            severity: "error",
           });
         }
       }
     } catch (error: any) {
       // TODO: blech:
-      let message = error.msg || 'Minting failed! Please try again!';
+      let message = error.msg || "Minting failed! Please try again!";
       if (!error.msg) {
         if (!error.message) {
-          message = 'Transaction Timeout! Please try again.';
-        } else if (error.message.indexOf('0x138')) {
-        } else if (error.message.indexOf('0x137')) {
+          message = "Transaction Timeout! Please try again.";
+        } else if (error.message.indexOf("0x138")) {
+        } else if (error.message.indexOf("0x137")) {
           message = `SOLD OUT!`;
-        } else if (error.message.indexOf('0x135')) {
+        } else if (error.message.indexOf("0x135")) {
           message = `Insufficient funds to mint. Please fund your wallet.`;
         }
       } else {
@@ -193,6 +192,11 @@ const Home = (props: HomeProps) => {
   return (
     <main>
       {wallet && (
+        <p className="text-center">
+          {itemsRedeemed} / {itemsRemaining} Mint
+        </p>
+      )}
+      {/* {wallet && (
         <p>Wallet {shortenAddress(wallet.publicKey.toBase58() || "")}</p>
       )}
 
@@ -204,20 +208,32 @@ const Home = (props: HomeProps) => {
 
       {wallet && <p>Remaining: {itemsRemaining}</p>}
 
-      {wallet && whitelistEnabled && <p>Whitelist token balance: {whitelistTokenBalance}</p>}
+      {wallet && whitelistEnabled && (
+        <p>Whitelist token balance: {whitelistTokenBalance}</p>
+      )} */}
 
-      {<MintContainer>
-        {!wallet ? (
-          <ConnectButton>Connect Wallet</ConnectButton>
-        ) :
-          candyMachine?.state.gatekeeper &&
+      {
+        <MintContainer>
+          {!wallet ? (
+            <ConnectButton
+              style={{
+                fontFamily: "VT323, monospace",
+                display: "block",
+                margin: "0 auto",
+                fontSize: "1.5rem",
+                padding: "0.5rem 1.5rem",
+                backgroundImage: "linear-gradient(180deg, #cba2ff, #300095)",
+              }}
+            >
+              Connect Wallet
+            </ConnectButton>
+          ) : candyMachine?.state.gatekeeper &&
             wallet.publicKey &&
             wallet.signTransaction ? (
             <GatewayProvider
               wallet={{
                 publicKey:
-                  wallet.publicKey ||
-                  new PublicKey(CANDY_MACHINE_PROGRAM),
+                  wallet.publicKey || new PublicKey(CANDY_MACHINE_PROGRAM),
                 //@ts-ignore
                 signTransaction: wallet.signTransaction,
               }}
@@ -243,7 +259,8 @@ const Home = (props: HomeProps) => {
               onMint={onMint}
             />
           )}
-      </MintContainer>}
+        </MintContainer>
+      }
 
       <Snackbar
         open={alertState.open}

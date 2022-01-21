@@ -3,6 +3,7 @@ import React from "react";
 import "./style.css";
 import Divider from "../../assets/images/divider.png";
 import World from "../../assets/images/world2.png";
+import App from "../../App";
 
 export default function Header() {
   return (
@@ -11,7 +12,8 @@ export default function Header() {
         <div className="row h-100 justify-content-center align-items-center">
           <div className="col-12 " style={{ marginTop: "150px" }}>
             <h1 className="text-center heading">Solana Droid Business</h1>
-            <button className="btn-purple">About the Collection</button>
+            <App />
+            {/* <button className="btn-purple">About the Collection</button> */}
             <p className="text-center my-3">5,000 Droids will be Released.</p>
           </div>
         </div>
